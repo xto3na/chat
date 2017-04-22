@@ -35,3 +35,8 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+/Chat/bin
+/Chat/obj
+bin
+/Chat/obj

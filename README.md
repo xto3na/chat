@@ -1,2 +1,2 @@
 # chat
-Chat in ASP.NET Core WebAPI + SignalR + Angular
+Chat in ASP.NET WebAPI + SignalR + Angular
