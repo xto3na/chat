@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Chat.Models;
+using Chat.Entities.Identity;
 
 namespace Chat.Hubs
 {
@@ -25,7 +26,7 @@ namespace Chat.Hubs
 
       if (!Users.Any(x => x.ConnectionId == id))
       {
-        Users.Add(new User { ConnectionId = id, Name = userName });
+        Users.Add(new User { ConnectionId = id, UserName = userName });
 
         // Посылаем сообщение текущему пользователю
         Clients.Caller.onConnected(id, userName, Users);
@@ -43,7 +44,7 @@ namespace Chat.Hubs
       {
         Users.Remove(item);
         var id = Context.ConnectionId;
-        Clients.All.onUserDisconnected(id, item.Name);
+        Clients.All.onUserDisconnected(id, item.UserName);
       }
 
       return base.OnDisconnected(stopCalled);
