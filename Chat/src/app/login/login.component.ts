@@ -15,18 +15,19 @@ export class LoginComponent implements OnInit {
 	login = '';
 	password = '';
 
-	// error: ErrorComponent;
+	error: ErrorComponent;
 	api: Api;
 	headers_to = new Headers();
 
-	constructor(private http: Http, private error: ErrorComponent) {
+	constructor(private http: Http) {
 		this.api = new Api();
 		this.headers_to.append('Content-Type', 'application/json');
-		// this.error = new ErrorComponent();
+		this.error = new ErrorComponent();
 	}
 
 	saveToken(token: any) {
-		localStorage.setItem('token', token);
+		localStorage.setItem('token', token.json().access_token);
+		localStorage.setItem('loggedIn', 'true');
 	}
 
   ngOnInit() {
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   loginPost() {
 	  const data = ['grant_type=password&' + 'username=' + this.login + '&password=' + this.password].join('');
-	  const xhr = this.http.post('/Token', data).subscribe(
+	  this.http.post(this.api.TOKEN_URL, data).subscribe(
 		  token => this.saveToken(token),
 		  error =>  this.error.show(error));
   }

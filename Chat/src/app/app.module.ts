@@ -13,10 +13,17 @@ import { MenuComponent } from './menu/menu.component';
 import { SignupComponent } from './signup/signup.component';
 import { ChatComponent } from './chat/chat.component';
 import { ErrorComponent } from './shared/error/error.component';
+import { ValidParamsGuard } from './valid-params.guard';
 
 const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
-	{ path: 'chat', component: ChatComponent },
+	{
+		path: 'chat',
+		component: ChatComponent,
+		canActivate: [
+			ValidParamsGuard
+		]
+	},
 	{ path: 'login', component: LoginComponent },
 	{ path: 'signup', component: SignupComponent },
 	// {
@@ -50,7 +57,8 @@ const appRoutes: Routes = [
 		HttpModule
 	],
 	providers: [
-		{provide: LocationStrategy, useClass: HashLocationStrategy}
+		{provide: LocationStrategy, useClass: HashLocationStrategy},
+		ValidParamsGuard
 	],
 	bootstrap: [AppComponent]
 })

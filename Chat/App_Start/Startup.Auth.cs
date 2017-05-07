@@ -20,13 +20,18 @@ namespace Chat
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+
             // Настройка контекста базы данных и диспетчера пользователей для использования одного экземпляра на запрос
             app.CreatePerOwinContext(DatabaseContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
-            // Включение использования файла cookie, в котором приложение может хранить информацию для пользователя, выполнившего вход,
-            // и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+
+            // TODO Only for debugging
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+      // Включение использования файла cookie, в котором приложение может хранить информацию для пользователя, выполнившего вход,
+      // и использование файла cookie для временного хранения информации о входах пользователя с помощью стороннего поставщика входа
+      app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Настройка приложения для потока обработки на основе OAuth
