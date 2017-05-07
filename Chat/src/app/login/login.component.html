@@ -1,5 +1,8 @@
 <form>
-	<input type="text" name="login" placeholder="Логин">
-	<input type="password" name="password" placeholder="Пароль">
-	<button type="button" name="submit"><span>Войти</span></button>
+	<input type="text" name="login" [(ngModel)]="login" placeholder="Логин">
+	<input type="password" name="password" [(ngModel)]="password" placeholder="Пароль">
+	<button type="button" name="submit" (click)="loginPost()"><span>Войти</span></button>
 </form>
+
+
+<!--<app-error></app-error>-->

@@ -1,6 +1,6 @@
 <form>
-	<input type="text" name="login" placeholder="Логин">
-	<input type="password" name="password" placeholder="Пароль">
-	<input type="password" name="password_confirm" placeholder="Повторить пароль">
-	<button type="button" name="submit"><span>Зарегистрироваться</span></button>
+	<input type="text" name="login" [(ngModel)]="login" placeholder="Логин">
+	<input type="password" name="password" [(ngModel)]="password" placeholder="Пароль">
+	<input type="password" name="password_confirm" [(ngModel)]="confirmPassword" placeholder="Повторить пароль">
+	<button type="button" (click)="register()" name="submit"><span>Зарегистрироваться</span></button>
 </form>

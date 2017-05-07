@@ -185,23 +185,23 @@ namespace Chat
                   //
                   //c.InjectJavaScript(thisAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testScript1.js");
                   c.InjectJavaScript(thisAssembly, "Chat.SwaggerExtensions.OwinBearerTokenSwaggerExt.js");
-                  // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
-                  // strings as the possible choices. You can use this option to change these to something else,
-                  // for example 0 and 1.
-                  //
-                  //c.BooleanValues(new[] { "0", "1" });
+            // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
+            // strings as the possible choices. You can use this option to change these to something else,
+            // for example 0 and 1.
+            //
+            //c.BooleanValues(new[] { "0", "1" });
 
-                  // By default, swagger-ui will validate specs against swagger.io's online validator and display the result
-                  // in a badge at the bottom of the page. Use these options to set a different validator URL or to disable the
-                  // feature entirely.
-                  //c.SetValidatorUrl("http://localhost/validator");
-                  //c.DisableValidator();
+            // By default, swagger-ui will validate specs against swagger.io's online validator and display the result
+            // in a badge at the bottom of the page. Use these options to set a different validator URL or to disable the
+            // feature entirely.
+            //c.SetValidatorUrl("http://localhost/validator");
+            //c.DisableValidator();
 
-                  // Use this option to control how the Operation listing is displayed.
-                  // It can be set to "None" (default), "List" (shows operations for each resource),
-                  // or "Full" (fully expanded: shows operations and their details).
-                  //
-                  c.DocExpansion(DocExpansion.List);
+            // Use this option to control how the Operation listing is displayed.
+            // It can be set to "None" (default), "List" (shows operations for each resource),
+            // or "Full" (fully expanded: shows operations and their details).
+            //
+            c.DocExpansion(DocExpansion.List);
 
                   // Use the CustomAsset option to provide your own version of assets used in the swagger-ui.
                   // It's typically used to instruct Swashbuckle to return your version instead of the default

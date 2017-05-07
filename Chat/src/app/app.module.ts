@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { SignupComponent } from './signup/signup.component';
 import { ChatComponent } from './chat/chat.component';
+import { ErrorComponent } from './shared/error/error.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
 		LoginComponent,
 		MenuComponent,
 		SignupComponent,
-		ChatComponent
+		ChatComponent,
+		ErrorComponent
 	],
 	imports: [
 		BrowserModule,

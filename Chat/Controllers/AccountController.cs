@@ -18,6 +18,7 @@ using Chat.Providers;
 using Chat.Results;
 using Chat.Entities.Identity;
 using Chat.Identity;
+using System.Web.Http.Cors;
 
 namespace Chat.Controllers
 {
@@ -27,6 +28,7 @@ namespace Chat.Controllers
   {
     private const string LocalLoginProvider = "Local";
     private ApplicationUserManager _userManager;
+    private ApplicationSignInManager _signInManager;
 
     public AccountController()
     {
@@ -37,6 +39,18 @@ namespace Chat.Controllers
     {
       UserManager = userManager;
       AccessTokenFormat = accessTokenFormat;
+    }
+
+    public ApplicationSignInManager SignInManager
+    {
+      get
+      {
+        return _signInManager ?? Request.GetOwinContext().Get<ApplicationSignInManager>();
+      }
+      private set
+      {
+        _signInManager = value;
+      }
     }
 
     public ApplicationUserManager UserManager
@@ -52,6 +66,36 @@ namespace Chat.Controllers
     }
 
     public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+
+    // POST: /Account/Login
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+
+      // Сбои при входе не приводят к блокированию учетной записи
+      // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
+      var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+      switch (result)
+      {
+        case SignInStatus.Success:
+          return RedirectToLocal(returnUrl);
+        case SignInStatus.LockedOut:
+          return View("Lockout");
+        case SignInStatus.RequiresVerification:
+          return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        case SignInStatus.Failure:
+        default:
+          ModelState.AddModelError("", "Неудачная попытка входа.");
+          return View(model);
+      }
+    }
 
     // GET api/Account/UserInfo
     [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -321,6 +365,7 @@ namespace Chat.Controllers
     }
 
     // POST api/Account/Register
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     [AllowAnonymous]
     [Route("Register")]
     public async Task<IHttpActionResult> Register(RegisterBindingModel model)
